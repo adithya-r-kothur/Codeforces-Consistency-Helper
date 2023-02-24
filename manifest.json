@@ -2,6 +2,14 @@
     "manifest_version":2,
     "name":"Codeforces-Consistency-Helper",
     "description":"helps in solving problems on codeforces daily",
-    "version":"1.0.0"
+    "version":"1.0.0",
+    "permissions":["tabs","https:///*","https://*/*","storage","https://api.codeforces.com/"],
+    "browser_action":{
+        "default_title":"CCH"
+    },
+    "background":{
+        "scripts":["background.js","index.html"],
+        "persistent":false
+    }
 
 }
