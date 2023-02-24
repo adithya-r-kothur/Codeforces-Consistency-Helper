@@ -1,7 +1,12 @@
-var isSubmitted =false;
-chrome.storage.sync.get("userhandle",function(result){
-    if(result.userhandle)
-    {
+var isSubmitted=false;
+
+
+function check() {
+    chrome.storage.sync.get("userhandle",function(result){
+        
+        if(result.userhandle)
+        {
+            
         var today = new Date().toDateString();
         const handle = result.userhandle; 
         
@@ -24,55 +29,83 @@ chrome.storage.sync.get("userhandle",function(result){
                     
                 }
             }
+
+            if(!isSubmitted)
+            {
+                alert(result.userhandle+" go solve a question on codeforces before browsing");
+                
+            }
             
             })
 
     }
     else
     {
-        var userhandle = prompt("Please enter your Codeforces handle:");
+         var userhandle = prompt("Please enter your Codeforces handle:");
             chrome.storage.sync.set({"userhandle":userhandle},function(){
             //alert(userhandle);
             });
+            
     }
+
+    chrome.tabs.onCreated.addListener(function(tab) {
+    
+    
+        if(!isSubmitted)
+        {    
+            //alert(isSubmitted);
+            alert(result.userhandle+" please go solve a question before browsing");
+            chrome.tabs.update({url: "https://codeforces.com/problemset/"});
+        
+        };
+    });
+
 });
+}
+
+
+check();
+
+//alert("welcome " +userhandle);
+
 chrome.browserAction.onClicked.addListener(function(tab){
     
-            var userhandle = prompt("Please enter your Codeforces handle:");
-            chrome.storage.sync.set({"userhandle":userhandle},function(){
-            //alert(userhandle);
-            });
-
-});
-
-
-
-chrome.tabs.onCreated.addListener(function(tab) {
     
-    if(!isSubmitted)
+    var change = prompt("Do want to change your handle for Codeforces-Consistency-Helper (yes/no)");
+    if(change==="yes")
     {
-        //alert(isSubmitted);
-        chrome.tabs.update(tab.id, {url: "https://codeforces.com/"});
-
+        var userhandle = prompt("Please enter your Codeforces handle:");
+           chrome.storage.sync.set({"userhandle":userhandle},function(){
+           //alert(userhandle);
+           });
     }
+    chrome.storage.sync.get("userhandle",function(result){
+        if(result.userhandle)
+        {
+
+            alert("welcome "+result.userhandle+" please close the browser and open again ");
+            
+            check();
+        }  
+        else
+        {
+            var userhandle = prompt("Please enter your Codeforces handle:");
+           chrome.storage.sync.set({"userhandle":userhandle},function(){
+           //alert(userhandle);
+           });
+           check();
+        } 
+
+    });
+
 });
 
 
 
-// const tabId = activeInfo.tabId;
-// // Add an event listener for tab switching
-// chrome.tabs.onActivated.addListener(function(activeInfo) {
-//     // Get the ID of the active tab
-  
-//     // Add an event listener for page navigation in the active tab
-//     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-//       // Check if the URL of the new page is different from the previous page
-//       if (changeInfo.status === 'complete' && tabId === activeInfo.tabId) {
-//         // Redirect the user to codeforces.com
-//         chrome.tabs.update(tabId, {url: "https://codeforces.com/"});
-//       }
-//     });
-//   });
+
+
+
+
   
   
   
