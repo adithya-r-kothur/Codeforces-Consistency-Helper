@@ -1,0 +1,7 @@
+{
+    "manifest_version":2,
+    "name":"Codeforces-Consistency-Helper",
+    "description":"helps in solving problems on codeforces daily",
+    "version":"1.0.0"
+
+}
