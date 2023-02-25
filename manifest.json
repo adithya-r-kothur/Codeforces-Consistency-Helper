@@ -3,12 +3,13 @@
     "name":"Codeforces-Consistency-Helper",
     "description":"helps in solving problems on codeforces daily",
     "version":"1.0.0",
-    "permissions":["tabs","https:///*","https://*/*","storage","https://api.codeforces.com/"],
+    "permissions":["tabs","https://*/*","storage","https://api.codeforces.com/"],
     "browser_action":{
+        "default_icon":"favicon-16x16.png",
         "default_title":"CCH"
     },
     "background":{
-        "scripts":["background.js","index.html"],
+        "scripts":["background.js"],
         "persistent":false
     }
 
